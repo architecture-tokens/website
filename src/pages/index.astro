@@ -1,10 +1,50 @@
 ---
-const description = 'Define architecture intent once, validate it, and render structured diagrams without binding meaning to a provider or tool.';
+const description =
+  'Define architecture intent once, validate it, and render structured diagrams without binding meaning to a provider or tool.';
 ---
+
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width" /><meta name="description" content={description} /><link rel="canonical" href="https://architecturetokens.org/" /><link rel="icon" href="/favicon.svg" /><title>Architecture Tokens — A shared semantic model for architecture</title><link rel="stylesheet" href="/styles.css" /></head>
-<body><header class="topbar"><a class="brand" href="/"><span class="mark">AT</span> Architecture Tokens</a><nav aria-label="Primary"><a href="/docs/">Docs</a><a href="https://github.com/architecture-tokens">GitHub ↗</a></nav></header>
-<main><section class="hero" aria-labelledby="hero-title"><div><p class="kicker">A shared semantic layer · v0.1 draft</p><h1 id="hero-title">Architecture should mean the same thing everywhere.</h1><p class="lede">Define intent once. Validate it against a portable contract. Turn the result into a structured draw.io diagram.</p><p class="support">Architecture Tokens are the smallest reusable semantic units for software architecture—components, relationships, and applied meaning that tools can understand.</p><div class="actions"><a class="button primary" href="/docs/getting-started/">Start with a local model →</a><a class="button secondary" href="/docs/">Read the mental model</a></div></div><div class="model" aria-label="Example architecture model"><div class="model-label">architecture-model.yaml</div><pre><code><span class="key">kind:</span> architecture-model
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href="https://architecturetokens.org/" />
+    <link rel="icon" href="/favicon.svg" />
+    <title>Architecture Tokens — A shared semantic model for architecture</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/"><span class="mark">AT</span> Architecture Tokens</a>
+      <nav aria-label="Primary">
+        <a href="/docs/">Docs</a>
+        <a href="https://github.com/architecture-tokens">GitHub ↗</a>
+      </nav>
+    </header>
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <p class="kicker">A shared semantic layer · v0.1 draft</p>
+          <h1 id="hero-title">Architecture should mean the same thing everywhere.</h1>
+          <p class="lede">
+            Define intent once. Validate it against a portable contract. Turn the result into a
+            structured draw.io diagram.
+          </p>
+          <p class="support">
+            Architecture Tokens are the smallest reusable semantic units for software
+            architecture—components, relationships, and applied meaning that tools can understand.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="/docs/getting-started/">
+              Start with a local model →
+            </a>
+            <a class="button secondary" href="/docs/">Read the mental model</a>
+          </div>
+        </div>
+        <div class="model">
+          <div class="model-label">architecture-model.yaml</div>
+          <pre><code><span class="key">kind:</span> architecture-model
 <span class="key">id:</span> payments
 <span class="key">libraries:</span> [core@0.1.0, security@0.1.0]
 <span class="key">components:</span>
@@ -15,6 +55,59 @@ const description = 'Define architecture intent once, validate it, and render st
   - <span class="key">id:</span> checkout-api
     <span class="key">type:</span> core:relationship.call.sync
     <span class="key">from:</span> checkout
-    <span class="key">to:</span> payments-api</code></pre><div class="model-note"><span></span> semantic meaning · provider-neutral by design</div></div></section>
-<section class="rail" aria-labelledby="rail-title"><div><p class="kicker">The path from intent to artifact</p><h2 id="rail-title">A semantic drafting rail</h2></div><div class="rail-grid"><a href="/docs/specification/architecture-model/"><b>Architecture model</b><span>Components + relationships</span></a><i aria-hidden="true">→</i><a href="/docs/specification/policies-and-validation/"><b>Validation</b><span>Schema + policy checks</span></a><i aria-hidden="true">→</i><a href="/docs/specification/renderer-contract/"><b>Structured layout</b><span>Normalized renderer input</span></a><i aria-hidden="true">→</i><a href="/docs/getting-started/"><b>draw.io</b><span>Inspectable output</span></a></div></section>
-<section class="composition" aria-labelledby="composition-title"><p class="kicker">Meaning is composed, not mapped</p><h2 id="composition-title">A component carries its type and applied tokens together.</h2><div class="composition-grid"><div class="component-box"><span>component</span><strong>payments-api</strong><code>core:component.service</code></div><div class="plus">+</div><div class="token-box"><span>applied token</span><strong>encrypted</strong><code>security:encrypted</code></div><div class="equals">=</div><p class="result">A service component with an explicit security property that survives validation and rendering.</p></div></section></main><footer><span>Architecture Tokens · Apache-2.0</span><a href="/docs/decisions-and-roadmap/">What is not shipped in v0.1 →</a></footer></body></html>
+    <span class="key">to:</span> payments-api</code></pre>
+          <div class="model-note">
+            <span></span> semantic meaning · provider-neutral by design
+          </div>
+        </div>
+      </section>
+      <section class="rail" aria-labelledby="rail-title">
+        <div>
+          <p class="kicker">The path from intent to artifact</p>
+          <h2 id="rail-title">A semantic drafting rail</h2>
+        </div>
+        <div class="rail-grid">
+          <a href="/docs/specification/architecture-model/">
+            <b>Architecture model</b><span>Components + relationships</span>
+          </a>
+          <i aria-hidden="true">→</i>
+          <a href="/docs/specification/policies-and-validation/">
+            <b>Validation</b><span>Schema + policy checks</span>
+          </a>
+          <i aria-hidden="true">→</i>
+          <a href="/docs/specification/renderer-contract/">
+            <b>Structured layout</b><span>Normalized renderer input</span>
+          </a>
+          <i aria-hidden="true">→</i>
+          <a href="/docs/getting-started/">
+            <b>draw.io</b><span>Inspectable output</span>
+          </a>
+        </div>
+      </section>
+      <section class="composition" aria-labelledby="composition-title">
+        <p class="kicker">Meaning is composed, not mapped</p>
+        <h2 id="composition-title">A component carries its type and applied tokens together.</h2>
+        <div class="composition-grid">
+          <div class="component-box">
+            <span>component</span><strong>payments-api</strong>
+            <code>core:component.service</code>
+          </div>
+          <div class="plus">+</div>
+          <div class="token-box">
+            <span>applied token</span><strong>encrypted</strong>
+            <code>security:encrypted</code>
+          </div>
+          <div class="equals">=</div>
+          <p class="result">
+            A service component with an explicit security property that survives validation and
+            rendering.
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <span>Architecture Tokens · Apache-2.0</span>
+      <a href="/docs/decisions-and-roadmap/">What is not shipped in v0.1 →</a>
+    </footer>
+  </body>
+</html>
