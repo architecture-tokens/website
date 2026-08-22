@@ -19,7 +19,8 @@ assert.equal(homepage.status, 200, 'canonical homepage must return 200');
 assert.match(await homepage.text(), /Architecture should mean the same thing everywhere\./);
 assert.match(homepage.headers.get('content-security-policy') ?? '', /default-src 'self'/);
 
-const missingPage = await request(`${canonicalOrigin}/not-a-page`);
+const missingPath = `/__not-found-check-${Date.now()}`;
+const missingPage = await request(`${canonicalOrigin}${missingPath}`);
 assert.equal(missingPage.status, 404, 'unknown canonical path must return 404');
 assert.equal(missingPage.headers.get('location'), null, 'branded 404 must not redirect');
 assert.match(await missingPage.text(), /That token does not exist\./);
