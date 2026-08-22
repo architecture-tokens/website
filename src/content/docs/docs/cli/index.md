@@ -7,11 +7,11 @@ Install the draw.io prototype from its pinned GitHub commit until npm publicatio
 
 ```sh
 npm install github:architecture-tokens/drawio-prototype#f9e00c7c12750fe3c6fd576c48ca01b18ffcde62
-npx archtokens validate payments.yaml --library libraries/core.yaml --library libraries/security.yaml --policy policies.yaml --format human
-npx archtokens generate payments.yaml --out payments.drawio --library libraries/core.yaml --library libraries/security.yaml --policy policies.yaml --format human
+npx archtokens validate payments.yaml --format human
+npx archtokens generate payments.yaml --out payments.drawio --format human
 ```
 
-The CLI has no config files. Repeat `--library` and `--policy` for inputs. `--format` accepts `human` or `json`. For `generate`, `--ai-model` takes precedence over `ARCHTOKENS_OPENAI_MODEL`, then `gpt-5.6`; `OPENAI_API_KEY` is only used by generate. The offline golden workflow is the reproducible baseline, and no live API call is run here.
+The CLI loads the pinned `core`, `security`, `environment`, and `lifecycle` libraries automatically and has no config files. Repeat `--library` for additional local token libraries and `--policy` for local policy sets. `--format` accepts `human` or `json`. For `generate`, `--ai-model` takes precedence over `ARCHTOKENS_OPENAI_MODEL`, then `gpt-5.6`; `OPENAI_API_KEY` is only used by generate. The offline golden workflow is the reproducible baseline, and no live API call is run here.
 
 | Exit code | Meaning |
 | --- | --- |
