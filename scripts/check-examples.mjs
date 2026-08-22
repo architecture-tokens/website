@@ -22,8 +22,8 @@ function check(value, file) {
 function walk(dir) { for (const entry of fs.readdirSync(dir, { withFileTypes: true })) { const file = path.join(dir, entry.name); if (entry.isDirectory()) walk(file); else if (file.endsWith('.md')) { const text = fs.readFileSync(file, 'utf8'); for (const match of text.matchAll(/```yaml\n([\s\S]*?)\n```/g)) { const value = parse(match[1]); if (value?.kind) check(value, file); } } } }
 walk(path.join(root, 'src/content/docs/docs'));
 const homepage = fs.readFileSync(path.join(root, 'src/pages/index.astro'), 'utf8');
-const homepageExample = homepage.match(/const architectureModelExample = `([\s\S]*?)`;/)?.[1];
-if (!homepageExample) throw new Error('Homepage architecture model example is missing');
+const homepageExample = homepage.match(/const tokenLibraryExample = `([\s\S]*?)`;/)?.[1];
+if (!homepageExample) throw new Error('Homepage token library example is missing');
 check(parse(homepageExample), 'src/pages/index.astro');
 if (checked < 5) throw new Error(`Expected homepage, architecture, token-library, and policy examples; found ${checked}`);
 console.log(`Validated ${checked} embedded YAML examples by declared kind.`);

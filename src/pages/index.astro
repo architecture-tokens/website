@@ -1,118 +1,182 @@
 ---
 const description =
-  'Define architecture intent once, validate it, and render structured diagrams without binding meaning to a provider or tool.';
-const architectureModelExample = `kind: architecture-model
-id: payments
-libraries: [core@0.1.0, security@0.1.0]
-components:
-  - id: checkout
-    type: core:component.service
-    tokens: []
-  - id: payments-api
-    type: core:component.service
-    tokens: []
-relationships:
-  - id: checkout-api
-    type: core:relationship.call.sync
-    from: checkout
-    to: payments-api
-    tokens: [{token: security:security.encryption.in-transit}]`;
+  'A portable way to express architectural intent across teams, tools, and environments.';
+const tokenLibraryExample = `kind: token-library
+namespace: security
+domains: [security]
+version: 0.1.0
+name: Security
+tokens:
+  - id: security.encryption.at-rest
+    kind: applied
+    name: Encryption at rest
+    description: Stored data is encrypted.
+    appliesTo:
+      elementKinds: [component]
+      componentTypes: [core:component.database]
+    valueSchema:
+      type: object
+      required: [algorithm]
+      properties:
+        algorithm: {type: string}`;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#f4f7fb" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Architecture Tokens" />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content="https://architecturetokens.org/" />
     <link rel="canonical" href="https://architecturetokens.org/" />
-    <link rel="icon" href="/favicon.svg" />
-    <title>Architecture Tokens — A shared semantic model for architecture</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/styles.css" />
+    <title>Architecture Tokens — A shared vocabulary for architecture</title>
   </head>
   <body>
-    <header class="topbar">
-      <a class="brand" href="/"><span class="mark">AT</span> Architecture Tokens</a>
-      <nav aria-label="Primary">
-        <a href="/docs/">Docs</a>
-        <a href="https://github.com/architecture-tokens">GitHub ↗</a>
-      </nav>
-    </header>
-    <main>
-      <section class="hero" aria-labelledby="hero-title">
-        <div>
-          <p class="kicker">A shared semantic layer · v0.1 draft</p>
-          <h1 id="hero-title">Architecture should mean the same thing everywhere.</h1>
-          <p class="lede">
-            Define intent once. Validate it against a portable contract. Turn the result into a
-            structured draw.io diagram.
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="/" aria-label="Architecture Tokens home">
+          <span class="brand-mark" aria-hidden="true"><span>AT</span></span>
+          <span>Architecture Tokens</span>
+        </a>
+        <nav class="header-actions" aria-label="Primary">
+          <span class="draft-badge"><span aria-hidden="true"></span>v0.1 Draft</span>
+          <a class="text-link header-spec-link" href="/docs/reference/specification/">
+            Specification
+          </a>
+          <a class="text-link" href="/docs/">Docs</a>
+          <a class="text-link" href="https://github.com/architecture-tokens">
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy reveal reveal-one">
+            <p class="eyebrow">A shared vocabulary for architecture</p>
+            <h1 id="hero-title">Architecture should mean the same thing everywhere.</h1>
+            <p class="hero-definition">
+              A portable way to express architectural intent across teams, tools, and environments.
+            </p>
+            <p class="hero-support">Keep the meaning stable while implementations evolve.</p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="/docs/reference/specification/">
+                Explore the specification <span aria-hidden="true">→</span>
+              </a>
+              <a class="button button-secondary" href="/docs/">Read the docs</a>
+            </div>
+          </div>
+
+          <article class="token-card reveal reveal-two" aria-labelledby="token-card-title">
+            <div class="token-card-header">
+              <div>
+                <p class="utility-label">Token library · security</p>
+                <h2 id="token-card-title">security.encryption.at-rest</h2>
+              </div>
+              <span class="token-state">applied</span>
+            </div>
+            <pre aria-label="Security token library example in YAML"><code>{tokenLibraryExample}</code></pre>
+          </article>
+        </section>
+
+        <section class="mapping-section reveal reveal-three" aria-labelledby="mapping-title">
+          <div class="section-heading">
+            <p class="eyebrow">Stable meaning, flexible implementation</p>
+            <h2 id="mapping-title">One meaning. Many implementations.</h2>
+            <p>
+              The architectural intent stays constant while each environment chooses an
+              implementation that satisfies it.
+            </p>
+          </div>
+
+          <div
+            class="mapping-diagram"
+            aria-label="Encryption at rest maps to representative AWS, Azure, and Google Cloud implementations"
+          >
+            <div class="semantic-node">
+              <span class="node-kicker">Architecture intent</span>
+              <strong>Stored data is encrypted</strong>
+              <code>security.encryption.at-rest</code>
+            </div>
+            <div class="mapping-rail" aria-hidden="true"><span></span></div>
+            <ul class="mapping-targets">
+              <li>
+                <span class="provider">AWS</span>
+                <strong>RDS encryption</strong>
+                <small>KMS-backed storage</small>
+              </li>
+              <li>
+                <span class="provider">Azure</span>
+                <strong>Azure SQL TDE</strong>
+                <small>Transparent data encryption</small>
+              </li>
+              <li>
+                <span class="provider">Google Cloud</span>
+                <strong>Cloud SQL encryption</strong>
+                <small>Encrypted storage</small>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="principles" aria-labelledby="principles-title">
+          <div class="section-heading compact">
+            <p class="eyebrow">The v0.1 premise</p>
+            <h2 id="principles-title">A vocabulary built to travel.</h2>
+          </div>
+          <ul class="principle-list">
+            <li>
+              <span class="principle-index">01</span>
+              <div>
+                <strong>Shared meaning</strong>
+                <p>People and tools interpret the same architectural intent.</p>
+              </div>
+            </li>
+            <li>
+              <span class="principle-index">02</span>
+              <div>
+                <strong>Vendor neutral</strong>
+                <p>Implementation choices do not own the vocabulary.</p>
+              </div>
+            </li>
+            <li>
+              <span class="principle-index">03</span>
+              <div>
+                <strong>Composable</strong>
+                <p>Tokens combine into architecture models that can be checked.</p>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section class="closing" aria-labelledby="closing-title">
+          <p class="eyebrow">Open specification</p>
+          <h2 id="closing-title">Help shape the vocabulary.</h2>
+          <p>
+            Architecture Tokens is an open draft. Review it, challenge it, and extend it with real
+            architecture work.
           </p>
-          <p class="support">
-            Architecture Tokens are the smallest reusable semantic units for software
-            architecture—components, relationships, and applied meaning that tools can understand.
-          </p>
-          <div class="actions">
-            <a class="button primary" href="/docs/getting-started/">
-              Start with a local model →
-            </a>
-            <a class="button secondary" href="/docs/">Read the mental model</a>
-          </div>
-        </div>
-        <div class="model">
-          <div class="model-label">architecture-model.yaml</div>
-          <pre><code>{architectureModelExample}</code></pre>
-          <div class="model-note">
-            <span></span> semantic meaning · provider-neutral by design
-          </div>
-        </div>
-      </section>
-      <section class="rail" aria-labelledby="rail-title">
-        <div>
-          <p class="kicker">The path from intent to artifact</p>
-          <h2 id="rail-title">A semantic drafting rail</h2>
-        </div>
-        <div class="rail-grid">
-          <a href="/docs/specification/architecture-model/">
-            <b>Architecture model</b><span>Components + relationships</span>
+          <a class="button button-primary" href="https://github.com/architecture-tokens/spec">
+            Contribute on GitHub <span aria-hidden="true">→</span>
           </a>
-          <i aria-hidden="true">→</i>
-          <a href="/docs/specification/policies-and-validation/">
-            <b>Validation</b><span>Schema + policy checks</span>
-          </a>
-          <i aria-hidden="true">→</i>
-          <a href="/docs/specification/renderer-contract/">
-            <b>Structured layout</b><span>Normalized renderer input</span>
-          </a>
-          <i aria-hidden="true">→</i>
-          <a href="/docs/getting-started/">
-            <b>draw.io</b><span>Inspectable output</span>
-          </a>
-        </div>
-      </section>
-      <section class="composition" aria-labelledby="composition-title">
-        <p class="kicker">Meaning is composed, not mapped</p>
-        <h2 id="composition-title">A component carries its type and applied tokens together.</h2>
-        <div class="composition-grid">
-          <div class="component-box">
-            <span>component</span><strong>payments-api</strong>
-            <code>core:component.service</code>
-          </div>
-          <div class="plus">+</div>
-          <div class="token-box">
-            <span>applied token</span><strong>encrypted</strong>
-            <code>security:encrypted</code>
-          </div>
-          <div class="equals">=</div>
-          <p class="result">
-            A service component with an explicit security property that survives validation and
-            rendering.
-          </p>
-        </div>
-      </section>
-    </main>
-    <footer>
-      <span>Architecture Tokens · Apache-2.0</span>
-      <a href="/docs/decisions-and-roadmap/">What is not shipped in v0.1 →</a>
-    </footer>
+        </section>
+      </main>
+
+      <footer>
+        <span>Architecture Tokens</span>
+        <span>An open vocabulary for software architecture.</span>
+        <nav aria-label="Footer">
+          <a href="/docs/reference/specification/">Specification</a>
+          <a href="/docs/">Docs</a>
+          <a href="https://github.com/architecture-tokens">GitHub</a>
+        </nav>
+      </footer>
+    </div>
   </body>
 </html>

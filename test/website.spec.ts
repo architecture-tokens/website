@@ -3,7 +3,22 @@ import { describe, expect, it } from 'vitest';
 import worker from '../src/index';
 async function fetchWebsite(url: string): Promise<Response> { return worker.fetch(new Request(url) as unknown as Request<unknown, IncomingRequestCfProperties>, env); }
 describe('Architecture Tokens website', () => {
-  it('serves canonical homepage with identity and security headers', async () => { const response = await fetchWebsite('https://architecturetokens.org/'); const body = await response.text(); expect(response.status).toBe(200); expect(body).toContain('Architecture should mean the same thing everywhere.'); expect(body).toContain('rel="canonical"'); expect(response.headers.get('Content-Security-Policy')).toBeNull(); expect(response.headers.get('X-Frame-Options')).toBe('DENY'); });
+  it('serves canonical homepage with restored identity and security headers', async () => {
+    const response = await fetchWebsite('https://architecturetokens.org/');
+    const body = await response.text();
+
+    expect(response.status).toBe(200);
+    expect(body).toContain('Architecture should mean the same thing everywhere.');
+    expect(body).toContain('A shared vocabulary for architecture');
+    expect(body).toContain('security.encryption.at-rest');
+    expect(body).toContain('One meaning. Many implementations.');
+    expect(body).toContain('Help shape the vocabulary.');
+    expect(body).toContain('href="/docs/"');
+    expect(body).toContain('https://github.com/architecture-tokens');
+    expect(body).toContain('rel="canonical"');
+    expect(response.headers.get('Content-Security-Policy')).toBeNull();
+    expect(response.headers.get('X-Frame-Options')).toBe('DENY');
+  });
   it.each(['/docs/', '/docs/cli/', '/docs/reference/schemas/architecture-model/', '/docs/reference/specification/'])('serves documentation route %s', async (path) => { const response = await fetchWebsite(`https://architecturetokens.org${path}`); const body = await response.text(); expect(response.status).toBe(200); expect(body).toContain('<main'); expect(body).toContain('content-security-policy'); expect(body).toMatch(/sha256-[A-Za-z0-9+/=]{20,}/); expect(body).not.toContain('unsafe-inline'); });
   it.each(['architecturetokens.com', 'www.architecturetokens.com', 'www.architecturetokens.org'])('redirects %s preserving path/query', async (hostname) => { const response = await fetchWebsite(`https://${hostname}/docs/cli?source=test`); expect(response.status).toBe(308); expect(response.headers.get('Location')).toBe('https://architecturetokens.org/docs/cli?source=test'); expect(response.headers.get('Content-Security-Policy')).toContain("default-src 'none'"); });
   it('returns branded 404 with status and no HTML CSP header', async () => { const response = await fetchWebsite('https://architecturetokens.org/not-a-page'); expect(response.status).toBe(404); expect(await response.text()).toContain('Page not found'); expect(response.headers.get('Content-Security-Policy')).toBeNull(); expect(response.headers.get('X-Frame-Options')).toBe('DENY'); });
