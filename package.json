@@ -7,10 +7,11 @@
   "scripts": {
     "dev": "wrangler dev",
     "types": "wrangler types",
+    "types:tracked": "git ls-files --error-unmatch worker-configuration.d.ts > /dev/null",
     "types:check": "wrangler types --check",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "check": "npm run types:check && npm run typecheck && npm test && npm run deploy:dry",
+    "check": "npm run types:tracked && npm run types:check && npm run typecheck && npm test && npm run deploy:dry",
     "deploy:dry": "wrangler deploy --dry-run --outdir .wrangler/dry-run",
     "deploy": "wrangler deploy"
   },
