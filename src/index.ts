@@ -5,21 +5,9 @@ const REDIRECT_HOSTS = new Set([
   'www.architecturetokens.com',
 ]);
 const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1']);
+const FALLBACK_CSP = "default-src 'none'; base-uri 'none'; frame-ancestors 'none'";
 
 const SECURITY_HEADERS = {
-  'Content-Security-Policy': [
-    "default-src 'self'",
-    "base-uri 'none'",
-    "connect-src 'self'",
-    "font-src 'self'",
-    "form-action 'none'",
-    "frame-ancestors 'none'",
-    "img-src 'self' data:",
-    "object-src 'none'",
-    "script-src 'none'",
-    "style-src 'self'",
-    'upgrade-insecure-requests',
-  ].join('; '),
   'Permissions-Policy': 'camera=(), geolocation=(), microphone=(), payment=(), usb=()',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
@@ -31,8 +19,10 @@ function withResponseHeaders(response: Response): Response {
   const headers = new Headers(response.headers);
 
   for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
+    if (name === 'Content-Security-Policy') continue;
     headers.set(name, value);
   }
+  if (!headers.get('Content-Type')?.includes('text/html')) headers.set('Content-Security-Policy', FALLBACK_CSP);
 
   if (response.status === 308) {
     headers.set('Cache-Control', 'public, max-age=3600');

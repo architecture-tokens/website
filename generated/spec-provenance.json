@@ -1,0 +1,7 @@
+{
+  "package": "@architecture-tokens/spec",
+  "version": "0.1.0",
+  "commit": "50729a0912e190979a122e1c2b31fdf3c367f2e5",
+  "schemas": 6,
+  "specification": "docs/reference/specification"
+}

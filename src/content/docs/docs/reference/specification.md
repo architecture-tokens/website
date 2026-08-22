@@ -1,0 +1,42 @@
+---
+title: Normative specification
+description: Generated normative content from the pinned spec package.
+---
+
+> Generated from **@architecture-tokens/spec 0.1.0**, pinned to commit `50729a0912e190979a122e1c2b31fdf3c367f2e5`. Do not edit this page by hand.
+
+# Architecture Tokens Core Specification
+
+Version: 0.1.0
+
+This specification defines portable YAML/JSON contracts for architecture
+meaning. A token library owns a lowercase namespace and exact SemVer version.
+It contains `component-type`, `relationship-type`, and `applied` definitions;
+the reference libraries keep core types separate from security, environment,
+and lifecycle domains. IDs are hierarchical dotted names and references are
+qualified as `namespace:token.id`.
+Definitions may declare `appliesTo`, a JSON-Schema `valueSchema`, `requires`,
+`conflicts`, and implementation `mappings`.
+
+An architecture model contains libraries, components, and relationships.
+Components and relationships are foundational elements. Every element has a
+unique ID, exactly one type-token reference, and zero or more applied-token
+objects `{token, value?}`. `appliesTo` can restrict element kinds and type
+tokens; application values are checked against `valueSchema`. Relationships
+connect existing component IDs. Libraries are selected as `namespace@version`.
+
+Policy sets are safe typed YAML: no code or CEL. A rule has `id`, `description`,
+`severity` (`error` or `warning`), `target`, `where`, `assert`, `message`, and
+optional `remediation`. Conditions are recursive `all`, `any`, `not`, or leaf
+predicates for `kind`, `type`, `hasToken`, `missingToken`, and `connectedTo`
+(direction, relationship type, and other element type/token).
+
+Validation reports contain stable `code`, `severity`, `layer`, document `path`,
+optional affected `elementId` and `ruleId`, `message`, and optional remediation.
+Renderer input is a normalized resolved model; layout is outside v0.1.
+
+Flows, separate type/instance identity, architecture evolution, remote
+registries, standard layout hints, and layout models are out of scope.
+
+See the [schemas](./schema/), [reference library](./libraries/core.yaml), and
+[examples](./examples/). The package is Apache-2.0 licensed.
