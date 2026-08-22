@@ -1,6 +1,22 @@
 ---
 const description =
   'Define architecture intent once, validate it, and render structured diagrams without binding meaning to a provider or tool.';
+const architectureModelExample = `kind: architecture-model
+id: payments
+libraries: [core@0.1.0, security@0.1.0]
+components:
+  - id: checkout
+    type: core:component.service
+    tokens: []
+  - id: payments-api
+    type: core:component.service
+    tokens: []
+relationships:
+  - id: checkout-api
+    type: core:relationship.call.sync
+    from: checkout
+    to: payments-api
+    tokens: [{token: security:security.encryption.in-transit}]`;
 ---
 
 <!doctype html>
@@ -44,18 +60,7 @@ const description =
         </div>
         <div class="model">
           <div class="model-label">architecture-model.yaml</div>
-          <pre><code><span class="key">kind:</span> architecture-model
-<span class="key">id:</span> payments
-<span class="key">libraries:</span> [core@0.1.0, security@0.1.0]
-<span class="key">components:</span>
-  - <span class="key">id:</span> payments-api
-    <span class="key">type:</span> core:component.service
-    <span class="key">tokens:</span> [&#123;token: security:security.encryption.at-rest&#125;]
-<span class="key">relationships:</span>
-  - <span class="key">id:</span> checkout-api
-    <span class="key">type:</span> core:relationship.call.sync
-    <span class="key">from:</span> checkout
-    <span class="key">to:</span> payments-api</code></pre>
+          <pre><code>{architectureModelExample}</code></pre>
           <div class="model-note">
             <span></span> semantic meaning · provider-neutral by design
           </div>
