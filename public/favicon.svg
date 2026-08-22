@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#f4f7fb"/>
+  <path d="M8 20V8h12M44 8h12v12M56 44v12H44M20 56H8V44" fill="none" stroke="#243bfd" stroke-width="4"/>
+  <text x="32" y="38" fill="#243bfd" font-family="monospace" font-size="16" font-weight="700" text-anchor="middle">AT</text>
+</svg>
