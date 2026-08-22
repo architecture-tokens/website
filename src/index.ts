@@ -64,23 +64,6 @@ function redirectToCanonical(url: URL): Response {
   );
 }
 
-async function serveAsset(request: Request, env: Env): Promise<Response> {
-  const response = await env.ASSETS.fetch(request);
-
-  if (response.status !== 404) {
-    return response;
-  }
-
-  const notFoundUrl = new URL('/404.html', request.url);
-  const notFoundAsset = await env.ASSETS.fetch(new Request(notFoundUrl, request));
-
-  return new Response(notFoundAsset.body, {
-    headers: notFoundAsset.headers,
-    status: 404,
-    statusText: 'Not Found',
-  });
-}
-
 export default {
   async fetch(request, env): Promise<Response> {
     const url = new URL(request.url);
@@ -94,7 +77,7 @@ export default {
     }
 
     try {
-      const response = await serveAsset(request, env);
+      const response = await env.ASSETS.fetch(request);
       return withResponseHeaders(response);
     } catch (error) {
       console.error(

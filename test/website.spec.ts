@@ -38,6 +38,7 @@ describe('Architecture Tokens website', () => {
     const response = await fetchWebsite('https://architecturetokens.org/not-a-page');
 
     expect(response.status).toBe(404);
+    expect(response.headers.get('Location')).toBeNull();
     expect(await response.text()).toContain('That token does not exist');
   });
 
