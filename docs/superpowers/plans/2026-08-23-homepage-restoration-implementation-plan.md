@@ -36,6 +36,8 @@ Replace the migrated drafting-system structure in `src/pages/index.astro` with t
 
 Retain the canonical URL, metadata, theme color, Open Graph metadata, favicon, stylesheet loading, and semantic landmarks. Link primary actions to the current local documentation routes and GitHub organization/specification destinations.
 
+Update `scripts/check-examples.mjs` to validate the renamed token-library homepage example instead of requiring the migrated architecture-model variable. Keep the same schema-backed validation path; do not replace it with a string-only check.
+
 Verification: targeted homepage tests pass and the generated homepage includes the approved section order and current terminology.
 
 ## 3. Consolidate the Visual System
@@ -93,4 +95,4 @@ Commit the scoped implementation separately from the already committed design an
 
 ## Rollback
 
-The homepage restoration is isolated to `src/pages/index.astro`, `public/styles.css`, and homepage assertions in `test/website.spec.ts`. If verification reveals an unresolved regression, revert only the implementation commit; the documentation site, Worker routing, and domain configuration remain unchanged.
+The homepage restoration is isolated to `src/pages/index.astro`, `public/styles.css`, `scripts/check-examples.mjs`, and homepage assertions in `test/website.spec.ts`. If verification reveals an unresolved regression, revert only the implementation commit; the documentation site, Worker routing, and domain configuration remain unchanged.
