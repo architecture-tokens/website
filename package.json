@@ -5,13 +5,18 @@
   "description": "The public website for Architecture Tokens.",
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev",
+    "dev": "npm run sync-spec && astro dev",
+    "build": "npm run sync-spec && astro build",
+    "check:built": "node scripts/check-built.mjs",
+    "check:examples": "node scripts/check-examples.mjs",
+    "sync-spec": "node scripts/sync-spec.mjs",
+    "check:generated": "npm run sync-spec && git diff --exit-code -- src/content/docs/docs/reference generated/spec-provenance.json",
     "types": "wrangler types",
     "types:tracked": "git ls-files --error-unmatch worker-configuration.d.ts > /dev/null",
     "types:check": "wrangler types --check",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "astro sync && tsc --noEmit",
     "test": "vitest run",
-    "check": "npm run types:tracked && npm run types:check && npm run typecheck && npm test && npm run deploy:dry",
+    "check": "npm run sync-spec && npm run check:generated && npm run check:examples && npm run build && npm run check:built && npm run types:tracked && npm run types:check && npm run typecheck && npm test && npm run deploy:dry",
     "verify:production": "node scripts/verify-production.mjs",
     "deploy:dry": "wrangler deploy --dry-run --outdir .wrangler/dry-run",
     "deploy": "wrangler deploy"
@@ -21,12 +26,19 @@
   },
   "devDependencies": {
     "@cloudflare/vitest-plugin": "1.0.0",
-    "@fontsource/ibm-plex-mono": "5.3.0",
     "@fontsource-variable/ibm-plex-sans": "5.3.0",
+    "@fontsource/ibm-plex-mono": "5.3.0",
     "@types/node": "26.2.0",
     "typescript": "7.0.2",
     "vitest": "4.1.11",
     "wrangler": "4.125.0"
   },
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@architecture-tokens/spec": "github:architecture-tokens/spec#50729a0912e190979a122e1c2b31fdf3c367f2e5",
+    "@astrojs/starlight": "0.41.7",
+    "ajv": "8.20.0",
+    "astro": "7.2.4",
+    "yaml": "2.9.0"
+  }
 }

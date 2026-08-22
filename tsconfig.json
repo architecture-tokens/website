@@ -10,11 +10,13 @@
     "skipLibCheck": true,
     "strict": true,
     "types": [
+      "astro/client",
       "@cloudflare/vitest-plugin/types"
     ]
   },
   "include": [
     "src/**/*.ts",
+    "src/**/*.astro",
     "test/**/*.ts",
     "vitest.config.ts",
     "worker-configuration.d.ts"
