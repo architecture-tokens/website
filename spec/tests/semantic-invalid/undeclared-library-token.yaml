@@ -1,0 +1,6 @@
+kind: architecture-model
+id: undeclared
+libraries: [common@0.1.0]
+components:
+  - {id: db, type: common:database, tokens: [{token: environment:environment.production}]}
+relationships: []

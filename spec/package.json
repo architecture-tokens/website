@@ -1,0 +1,19 @@
+{
+  "name": "@architecture-tokens/spec",
+  "version": "0.1.0",
+  "description": "Architecture Tokens Core Spec v0.1 contracts, reference libraries, and validator.",
+  "exports": { ".": "./scripts/validate.mjs", "./schema/*": "./schema/*", "./libraries/*": "./libraries/*", "./SPEC.md": "./SPEC.md" },
+  "files": ["SPEC.md", "README.md", "LICENSE", "CONTRIBUTING.md", "schema", "libraries", "examples", "scripts"],
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/validate.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "ajv": "8.20.0",
+    "yaml": "2.9.0"
+  },
+  "license": "Apache-2.0"
+}
