@@ -16,13 +16,17 @@ async function request(url) {
 
 const homepage = await request(`${canonicalOrigin}/`);
 assert.equal(homepage.status, 200, 'canonical homepage must return 200');
-assert.match(await homepage.text(), /Architecture should mean the same thing everywhere\./);
-assert.match(homepage.headers.get('content-security-policy') ?? '', /default-src 'self'/);
+const homepageBody = await homepage.text();
+assert.match(homepageBody, /Architecture should mean the same thing everywhere\./);
+assert.match(homepageBody, /http-equiv="content-security-policy" content="default-src 'self'/);
+assert.equal(homepage.headers.get('content-security-policy'), null, 'HTML CSP must remain in the generated meta tag');
 
 const commonTokens = await request(`${canonicalOrigin}/docs/specification/common-tokens/`);
 assert.equal(commonTokens.status, 200, 'Common Tokens page must return 200');
-assert.match(await commonTokens.text(), /common:database/);
-assert.match(commonTokens.headers.get('content-security-policy') ?? '', /default-src 'self'/);
+const commonTokensBody = await commonTokens.text();
+assert.match(commonTokensBody, /common:database/);
+assert.match(commonTokensBody, /http-equiv="content-security-policy" content="default-src 'self'/);
+assert.equal(commonTokens.headers.get('content-security-policy'), null, 'HTML CSP must remain in the generated meta tag');
 
 for (const path of [
   '/docs/reference/',

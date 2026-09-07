@@ -17,20 +17,12 @@ const SECURITY_HEADERS = {
 
 async function withResponseHeaders(response: Response): Promise<Response> {
   const headers = new Headers(response.headers);
-  let body: BodyInit | null = response.body;
 
   for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
     if (name === 'Content-Security-Policy') continue;
     headers.set(name, value);
   }
-  if (headers.get('Content-Type')?.includes('text/html')) {
-    const html = await response.text();
-    body = html;
-    const contentSecurityPolicy =
-      html.match(/<meta\s+http-equiv="content-security-policy"\s+content="([^"]+)"/i)?.[1] ??
-      html.match(/<meta\s+http-equiv='content-security-policy'\s+content='([^']+)'/i)?.[1];
-    headers.set('Content-Security-Policy', contentSecurityPolicy ?? FALLBACK_CSP);
-  } else {
+  if (!headers.get('Content-Type')?.includes('text/html')) {
     headers.set('Content-Security-Policy', FALLBACK_CSP);
   }
 
@@ -42,7 +34,7 @@ async function withResponseHeaders(response: Response): Promise<Response> {
     headers.set('Cache-Control', 'public, max-age=86400');
   }
 
-  return new Response(body, {
+  return new Response(response.body, {
     headers,
     status: response.status,
     statusText: response.statusText,
