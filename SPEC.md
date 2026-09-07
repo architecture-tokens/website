@@ -5,9 +5,10 @@ Version: 0.1.0
 This specification defines portable YAML/JSON contracts for architecture
 meaning. A token library owns a lowercase namespace and exact SemVer version.
 It contains `component-type`, `relationship-type`, and `applied` definitions;
-the reference libraries keep core types separate from security, environment,
-and lifecycle domains. IDs are hierarchical dotted names and references are
-qualified as `namespace:token.id`.
+the reference libraries keep common and core types separate from security,
+environment, and lifecycle domains. IDs may be a single name or a hierarchical
+dotted name; references are qualified as `namespace:token` or
+`namespace:token.id`.
 Definitions may declare `appliesTo`, a JSON-Schema `valueSchema`, `requires`,
 `conflicts`, and implementation `mappings`.
 
@@ -27,6 +28,20 @@ example, `orders-api` can be a component of type
 `core:component.service`; its synchronous call to `payments-api` can be a
 relationship of type `core:relationship.call.sync`; and
 `lifecycle:lifecycle.deprecated` can be an applied token on either element.
+
+## Common token library
+
+The `common` library contains meanings and presentation affordances that are
+intended to travel across architecture notations. `common:database` means a
+persistent structured data store, and `common:user` means a human participant
+who interacts with a software system. Both are component types.
+
+`common:visual.decision-hexagon`, `common:visual.diamond`, and
+`common:visual.parallelogram` are applied presentation tokens. They select an
+appearance for a component without assigning domain semantics. The
+`common:ordinal-marker` applied token records an item's ordinal position; it
+does not assert temporal order. Renderer mappings may point to reusable SVG
+assets, but a mapping never changes the definition's semantic meaning.
 
 An Asset is a concrete managed object, such as a Kubernetes Deployment,
 database instance, repository, alert policy, or cloud account. Asset records
@@ -49,5 +64,6 @@ Renderer input is a normalized resolved model; layout is outside v0.1.
 Flows, separate type/instance identity, architecture evolution, remote
 registries, standard layout hints, and layout models are out of scope.
 
-See the [schemas](./schema/), [reference library](./libraries/core.yaml), and
-[examples](./examples/). The package is Apache-2.0 licensed.
+See the [schemas](./schema/), [common library](./libraries/common.yaml),
+[core library](./libraries/core.yaml), and [examples](./examples/). The package
+is Apache-2.0 licensed.

@@ -1,0 +1,75 @@
+kind: token-library
+namespace: common
+domains: [database, user, visual, ordinal-marker]
+version: 0.1.0
+name: Common architecture tokens
+description: Portable component and presentation tokens supported by cross-format evidence.
+tokens:
+  - id: database
+    kind: component-type
+    name: Database
+    description: A persistent structured data store.
+    valueSchema: {type: object, required: [engine], properties: {engine: {type: string}}}
+    mappings:
+      renderer:
+        svg:
+          ref: assets/common.database.svg#database
+          annotation: Reusable database-cylinder symbol for common:database.
+  - id: user
+    kind: component-type
+    name: User
+    description: A human participant who interacts with a software system.
+    mappings:
+      renderer:
+        svg:
+          ref: assets/common.user.svg#user
+          annotation: Reusable visual symbol for common:user.
+  - id: visual.decision-hexagon
+    kind: applied
+    name: Expanded decision hexagon
+    description: Renders a component as a horizontally expanded six-sided shape without assigning decision semantics.
+    appliesTo: {elementKinds: [component]}
+    mappings:
+      renderer:
+        svg:
+          ref: assets/common.decision-hexagon.svg#decision-hexagon
+          annotation: Reusable 340x124 top/bottom-pointed hexagon with four cardinal ports and an M-tier label box.
+  - id: visual.diamond
+    kind: applied
+    name: Diamond
+    description: Renders a component with a compact diamond appearance without assigning decision semantics.
+    appliesTo: {elementKinds: [component]}
+    mappings:
+      renderer:
+        svg:
+          ref: assets/common.diamond.svg#diamond
+          annotation: Reusable 224x104 diamond with four cardinal ports and an S-tier label box.
+  - id: visual.parallelogram
+    kind: applied
+    name: Parallelogram
+    description: Renders a component as a right-leaning parallelogram without changing its architectural meaning.
+    appliesTo: {elementKinds: [component]}
+    mappings:
+      renderer:
+        svg:
+          ref: assets/common.parallelogram.svg#parallelogram
+          annotation: Reusable right-leaning parallelogram with an inset content box for labels.
+  - id: ordinal-marker
+    kind: applied
+    name: Ordinal marker
+    description: Marks an item's ordered position without implying that the order is temporal.
+    valueSchema:
+      type: object
+      required: [ordinal]
+      additionalProperties: false
+      properties:
+        ordinal: {type: integer, minimum: 1}
+        sequence: {type: string, minLength: 1}
+        label: {type: string, minLength: 1}
+    mappings:
+      renderer:
+        svg:
+          ref: assets/common.ordinal-marker.svg#ordinal-marker
+          valueBindings:
+            ordinal: ordinal-value.textContent
+          annotation: Reusable numbered marker whose circle and text colours come from the owner context.

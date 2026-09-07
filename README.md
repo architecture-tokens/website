@@ -13,17 +13,18 @@ They give diagrams, documentation, reviews, and automation a shared, machine-rea
 
 ```yaml
 kind: token-library
-namespace: core
+namespace: common
+domains: [database]
 version: 0.1.0
-name: Architecture Tokens Core
+name: Common architecture tokens
 tokens:
-  - id: component.database
+  - id: database
     kind: component-type
     name: Database
     description: A persistent structured data store.
 ```
 
-The package defines token libraries, architecture models, typed policy sets, validation reports, and renderer-input normalized models. Core, security, environment, and lifecycle are separate namespaces; applied token uses are `{token, value?}` objects.
+The package defines token libraries, architecture models, typed policy sets, validation reports, and renderer-input normalized models. Common, core, security, environment, and lifecycle are separate namespaces; applied token uses are `{token, value?}` objects.
 
 ## Token-only model
 
@@ -33,6 +34,7 @@ components and relationships, which reference Tokens for their type and
 annotations:
 
 - `core:component.service` types a component such as `orders-api`.
+- `common:database` types a persistent store such as `orders-ledger`.
 - `core:relationship.call.sync` types its call to `payments-api`.
 - `lifecycle:lifecycle.deprecated` can annotate either element with a lifecycle
   fact.

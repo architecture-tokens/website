@@ -5,13 +5,13 @@ policies:
     description: Production database encryption.
     severity: error
     target: component
-    where: {all: [{type: core:component.database}, {hasToken: environment:environment.production}]}
+    where: {all: [{type: common:database}, {hasToken: environment:environment.production}]}
     assert: {hasToken: security:security.encryption.at-rest}
     message: Production database requires encryption at rest.
   - id: production-database-not-public
     description: Production database is not directly public.
     severity: error
     target: component
-    where: {all: [{type: core:component.database}, {hasToken: environment:environment.production}]}
+    where: {all: [{type: common:database}, {hasToken: environment:environment.production}]}
     assert: {not: {connectedTo: {direction: in, elementType: core:component.external-actor}}}
     message: Production database must not be directly exposed to an external actor.

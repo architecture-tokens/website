@@ -1,6 +1,6 @@
 kind: architecture-model
 id: missing-value
-libraries: [core@0.1.0, security@0.1.0]
+libraries: [common@0.1.0, security@0.1.0]
 components:
-  - {id: db, type: core:component.database, tokens: [{token: security:security.encryption.at-rest}]}
+  - {id: db, type: common:database, tokens: [{token: security:security.encryption.at-rest}]}
 relationships: []
