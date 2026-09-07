@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" role="img" aria-labelledby="title desc" color="#475569">
+  <title id="title">Ordinal marker</title>
+  <desc id="desc">Reusable circular marker whose displayed ordinal is supplied by the token application.</desc>
+  <style>
+    .ordinal-value { font-family: "SF Compact Rounded", ".SF Compact Rounded", ui-rounded, sans-serif; font-size: 18px; font-weight: 600; fill: var(--token-foreground, #f8fafc); }
+  </style>
+  <g id="ordinal-marker" data-value-slot="ordinal">
+    <circle cx="14" cy="14" r="14" fill="currentColor"/>
+    <text id="ordinal-value" x="14" y="14" text-anchor="middle" dominant-baseline="central" class="ordinal-value">1</text>
+  </g>
+</svg>

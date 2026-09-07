@@ -5,6 +5,8 @@ description: Versioned namespaces for reusable architecture vocabulary.
 
 Libraries own lowercase namespaces, domains, and SemVer versions. A reference is qualified as `namespace:token.id`; core types stay separate from domain libraries such as security, environment, and lifecycle.
 
+The [common tokens](../common-tokens/) library supplies portable component meanings and presentation affordances. `common:database` is the canonical database component type; `common:user` is a human participant, while `core:component.external-actor` can be either a person or an external system.
+
 ```yaml
 kind: token-library
 namespace: security

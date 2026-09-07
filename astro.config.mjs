@@ -26,6 +26,7 @@ export default defineConfig({
         { label: 'Specification', items: [
           { label: 'Architecture model', link: '/docs/specification/architecture-model/' },
           { label: 'Token libraries', link: '/docs/specification/token-libraries/' },
+          { label: 'Common tokens', link: '/docs/specification/common-tokens/' },
           { label: 'Applicability and composition', link: '/docs/specification/applicability-and-composition/' },
           { label: 'Policies and validation', link: '/docs/specification/policies-and-validation/' },
           { label: 'Renderer contract', link: '/docs/specification/renderer-contract/' },
@@ -34,7 +35,7 @@ export default defineConfig({
         { label: 'Reference', items: [{ label: 'Schemas and provenance', link: '/docs/reference/' }] },
         { label: 'Decisions and roadmap', link: '/docs/decisions-and-roadmap/' },
       ],
-      customCss: ['./src/styles/tokens.css'],
+      customCss: ['./src/styles/tokens.css', './src/styles/common-tokens.css'],
     }),
   ],
 });

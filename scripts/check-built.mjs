@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 const root = path.resolve(new URL('..', import.meta.url).pathname);
 const dist = path.join(root, 'dist');
-const required = ['/docs/', '/docs/getting-started/', '/docs/cli/', '/docs/reference/', '/docs/reference/specification/', '/docs/reference/schemas/architecture-model/', '/docs/specification/architecture-model/', '/docs/decisions-and-roadmap/'];
+const required = ['/docs/', '/docs/getting-started/', '/docs/cli/', '/docs/reference/', '/docs/reference/specification/', '/docs/reference/schemas/architecture-model/', '/docs/specification/architecture-model/', '/docs/specification/common-tokens/', '/docs/decisions-and-roadmap/'];
 const files = [];
 function walk(dir) { for (const entry of fs.readdirSync(dir, {withFileTypes:true})) { const p = path.join(dir, entry.name); if (entry.isDirectory()) walk(p); else if (entry.name.endsWith('.html')) files.push(p); } }
 walk(dist);

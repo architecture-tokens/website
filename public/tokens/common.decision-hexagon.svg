@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 124" role="img" aria-labelledby="title desc">
+  <title id="title">Expanded decision hexagon visual token</title>
+  <desc id="desc">A rounded, horizontally expanded six-sided shape with top and bottom points, four cardinal ports, and an M-tier safe label box. It conveys appearance only, not decision semantics.</desc>
+  <defs>
+    <g id="decision-hexagon" color="#854d0e">
+      <polygon points="170,0 340,20 340,104 170,124 0,104 0,20" fill="transparent" stroke="transparent" data-token-boundary="true" aria-hidden="true"/>
+      <path d="M160.1 1.2Q170 0 179.9 1.2L330.1 18.8Q340 20 340 30V94Q340 104 330.1 105.2L179.9 122.8Q170 124 160.1 122.8L9.9 105.2Q0 104 0 94V30Q0 20 9.9 18.8Z" fill="var(--token-fill, #fffbeb)" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" data-token-outline="true" data-outline-fillet="10"/>
+      <rect id="decision-hexagon-content-box" x="70" y="22" width="200" height="80" fill="none" stroke="none" data-content-box="true" data-label-box="M"/>
+      <circle id="decision-hexagon-port-top" data-connection-port="top" cx="170" cy="0" r="0"/>
+      <circle id="decision-hexagon-port-right" data-connection-port="right" cx="340" cy="62" r="0"/>
+      <circle id="decision-hexagon-port-bottom" data-connection-port="bottom" cx="170" cy="124" r="0"/>
+      <circle id="decision-hexagon-port-left" data-connection-port="left" cx="0" cy="62" r="0"/>
+    </g>
+  </defs>
+  <use href="#decision-hexagon"/>
+</svg>
