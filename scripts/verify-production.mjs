@@ -19,11 +19,16 @@ assert.equal(homepage.status, 200, 'canonical homepage must return 200');
 assert.match(await homepage.text(), /Architecture should mean the same thing everywhere\./);
 assert.match(homepage.headers.get('content-security-policy') ?? '', /default-src 'self'/);
 
+const commonTokens = await request(`${canonicalOrigin}/docs/specification/common-tokens/`);
+assert.equal(commonTokens.status, 200, 'Common Tokens page must return 200');
+assert.match(await commonTokens.text(), /common:database/);
+assert.match(commonTokens.headers.get('content-security-policy') ?? '', /default-src 'self'/);
+
 const missingPath = `/__not-found-check-${Date.now()}`;
 const missingPage = await request(`${canonicalOrigin}${missingPath}`);
 assert.equal(missingPage.status, 404, 'unknown canonical path must return 404');
 assert.equal(missingPage.headers.get('location'), null, 'branded 404 must not redirect');
-assert.match(await missingPage.text(), /That token does not exist\./);
+assert.match(await missingPage.text(), /Page not found/);
 
 for (const origin of redirectOrigins) {
   const response = await request(`${origin}/spec/example?source=verify`);
