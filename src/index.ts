@@ -15,14 +15,24 @@ const SECURITY_HEADERS = {
   'X-Frame-Options': 'DENY',
 } as const;
 
-function withResponseHeaders(response: Response): Response {
+async function withResponseHeaders(response: Response): Promise<Response> {
   const headers = new Headers(response.headers);
+  let body: BodyInit | null = response.body;
 
   for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
     if (name === 'Content-Security-Policy') continue;
     headers.set(name, value);
   }
-  if (!headers.get('Content-Type')?.includes('text/html')) headers.set('Content-Security-Policy', FALLBACK_CSP);
+  if (headers.get('Content-Type')?.includes('text/html')) {
+    const html = await response.text();
+    body = html;
+    const contentSecurityPolicy =
+      html.match(/<meta\s+http-equiv="content-security-policy"\s+content="([^"]+)"/i)?.[1] ??
+      html.match(/<meta\s+http-equiv='content-security-policy'\s+content='([^']+)'/i)?.[1];
+    headers.set('Content-Security-Policy', contentSecurityPolicy ?? FALLBACK_CSP);
+  } else {
+    headers.set('Content-Security-Policy', FALLBACK_CSP);
+  }
 
   if (response.status === 308) {
     headers.set('Cache-Control', 'public, max-age=3600');
@@ -32,19 +42,19 @@ function withResponseHeaders(response: Response): Response {
     headers.set('Cache-Control', 'public, max-age=86400');
   }
 
-  return new Response(response.body, {
+  return new Response(body, {
     headers,
     status: response.status,
     statusText: response.statusText,
   });
 }
 
-function redirectToCanonical(url: URL): Response {
+async function redirectToCanonical(url: URL): Promise<Response> {
   url.hostname = CANONICAL_HOST;
   url.protocol = 'https:';
   url.port = '';
 
-  return withResponseHeaders(
+  return await withResponseHeaders(
     new Response(null, {
       headers: {
         Location: url.toString(),
@@ -59,16 +69,16 @@ export default {
     const url = new URL(request.url);
 
     if (REDIRECT_HOSTS.has(url.hostname)) {
-      return redirectToCanonical(url);
+      return await redirectToCanonical(url);
     }
 
     if (url.hostname !== CANONICAL_HOST && !LOCAL_HOSTS.has(url.hostname)) {
-      return withResponseHeaders(new Response('Not Found', { status: 404 }));
+      return await withResponseHeaders(new Response('Not Found', { status: 404 }));
     }
 
     try {
       const response = await env.ASSETS.fetch(request);
-      return withResponseHeaders(response);
+      return await withResponseHeaders(response);
     } catch (error) {
       console.error(
         JSON.stringify({
@@ -78,7 +88,7 @@ export default {
         }),
       );
 
-      return withResponseHeaders(
+      return await withResponseHeaders(
         new Response('Internal Server Error', {
           status: 500,
         }),
