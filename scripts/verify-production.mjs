@@ -24,6 +24,15 @@ assert.equal(commonTokens.status, 200, 'Common Tokens page must return 200');
 assert.match(await commonTokens.text(), /common:database/);
 assert.match(commonTokens.headers.get('content-security-policy') ?? '', /default-src 'self'/);
 
+for (const path of [
+  '/docs/reference/',
+  '/docs/specification/common-tokens/',
+  '/docs/specification/token-libraries/',
+]) {
+  const response = await request(`${canonicalOrigin}${path}`);
+  assert.equal(response.status, 200, `specification link ${path} must return 200`);
+}
+
 const missingPath = `/__not-found-check-${Date.now()}`;
 const missingPage = await request(`${canonicalOrigin}${missingPath}`);
 assert.equal(missingPage.status, 404, 'unknown canonical path must return 404');

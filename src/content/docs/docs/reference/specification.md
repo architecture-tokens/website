@@ -71,6 +71,6 @@ Renderer input is a normalized resolved model; layout is outside v0.1.
 Flows, separate type/instance identity, architecture evolution, remote
 registries, standard layout hints, and layout models are out of scope.
 
-See the [schemas](./schema/), [common library](./libraries/common.yaml),
-[core library](./libraries/core.yaml), and [examples](./examples/). The package
+See the [schemas](/docs/reference/), [common library](/docs/specification/common-tokens/),
+[core library](/docs/specification/token-libraries/), and [examples](https://github.com/architecture-tokens/website/tree/main/spec/examples). The package
 is Apache-2.0 licensed.

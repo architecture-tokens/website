@@ -24,7 +24,14 @@ for (const filename of fs.readdirSync(schemaDir).filter((name) => name.endsWith(
   fs.writeFileSync(path.join(outDir, `${slug}.md`), `---\ntitle: ${title}\ndescription: Generated field reference for ${title}.\n---\n\n> Generated from the in-repository **@architecture-tokens/spec ${pkg.version}** workspace. Do not edit this page by hand.\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n${fields}\n`);
   rows.push(`- [${title}](./schemas/${slug}/)`);
 }
-const spec = fs.readFileSync(path.join(specRoot, 'SPEC.md'), 'utf8');
+const specLinkTargets = new Map([
+  ['./schema/', '/docs/reference/'],
+  ['./libraries/common.yaml', '/docs/specification/common-tokens/'],
+  ['./libraries/core.yaml', '/docs/specification/token-libraries/'],
+  ['./examples/', 'https://github.com/architecture-tokens/website/tree/main/spec/examples'],
+]);
+let spec = fs.readFileSync(path.join(specRoot, 'SPEC.md'), 'utf8');
+for (const [source, target] of specLinkTargets) spec = spec.replaceAll(`](${source})`, `](${target})`);
 const specOut = path.join(root, 'src/content/docs/docs/reference/specification.md');
 fs.writeFileSync(specOut, `---\ntitle: Normative specification\ndescription: Generated normative content from the in-repository spec workspace.\n---\n\n> Generated from the in-repository **@architecture-tokens/spec ${pkg.version}** workspace. Do not edit this page by hand.\n\n${spec}`);
 fs.writeFileSync(path.join(root, 'generated/spec-provenance.json'), JSON.stringify({ package: '@architecture-tokens/spec', version: pkg.version, source: 'spec/', schemas: rows.length, specification: 'docs/reference/specification' }, null, 2) + '\n');
