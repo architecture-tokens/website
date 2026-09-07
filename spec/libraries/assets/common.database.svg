@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 121" role="img" aria-labelledby="title desc">
+  <title id="title">Database architecture token</title>
+  <desc id="desc">A reusable database cylinder for the common:database architecture token.</desc>
+  <defs>
+    <g id="database" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+      <path d="M2 18v84c0 10 46 17 103 17s103-7 103-17V18" fill="var(--token-fill, #e0f2fe)"/>
+      <ellipse cx="105" cy="18" rx="103" ry="17" fill="var(--token-top, #bae6fd)"/>
+    </g>
+  </defs>
+  <use href="#database"/>
+</svg>

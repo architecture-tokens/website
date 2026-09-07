@@ -1,0 +1,17 @@
+.common-token-gallery article,
+.common-token-gallery--visual article {
+  grid-template-columns: 1fr;
+}
+
+.common-token-gallery article > div { min-width: 0; }
+
+.common-token-gallery img { justify-self: start; }
+
+.common-token-gallery code {
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+@media (max-width: 28rem) {
+  .common-token-gallery { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,8 @@
+kind: architecture-model
+id: invalid-element-id
+libraries: [common@0.1.0]
+components:
+  - id: 1database
+    type: common:database
+    tokens: []
+relationships: []

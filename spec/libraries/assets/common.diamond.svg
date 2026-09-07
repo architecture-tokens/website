@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 224 104" role="img" aria-labelledby="title desc">
+  <title id="title">Diamond visual token</title>
+  <desc id="desc">A compact rounded diamond with four cardinal ports and an S-tier safe label box. It conveys appearance only, not decision semantics.</desc>
+  <defs>
+    <g id="diamond" color="#854d0e">
+      <polygon points="112,0 224,52 112,104 0,52" fill="transparent" stroke="transparent" data-token-boundary="true" aria-hidden="true"/>
+      <path d="M102.9 4.2Q112 0 121.1 4.2L214.9 47.8Q224 52 214.9 56.2L121.1 99.8Q112 104 102.9 99.8L9.1 56.2Q0 52 9.1 47.8Z" fill="var(--token-fill, #fffbeb)" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" data-token-outline="true" data-outline-fillet="10"/>
+      <rect id="diamond-content-box" x="64" y="32" width="96" height="40" fill="none" stroke="none" data-content-box="true" data-label-box="S"/>
+      <circle id="diamond-port-top" data-connection-port="top" cx="112" cy="0" r="0"/>
+      <circle id="diamond-port-right" data-connection-port="right" cx="224" cy="52" r="0"/>
+      <circle id="diamond-port-bottom" data-connection-port="bottom" cx="112" cy="104" r="0"/>
+      <circle id="diamond-port-left" data-connection-port="left" cx="0" cy="52" r="0"/>
+    </g>
+  </defs>
+  <use href="#diamond"/>
+</svg>

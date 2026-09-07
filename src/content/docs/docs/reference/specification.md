@@ -1,9 +1,9 @@
 ---
 title: Normative specification
-description: Generated normative content from the pinned spec package.
+description: Generated normative content from the in-repository spec workspace.
 ---
 
-> Generated from **@architecture-tokens/spec 0.1.0**, pinned to commit `50729a0912e190979a122e1c2b31fdf3c367f2e5`. Do not edit this page by hand.
+> Generated from the in-repository **@architecture-tokens/spec 0.1.0** workspace. Do not edit this page by hand.
 
 # Architecture Tokens Core Specification
 
@@ -12,9 +12,10 @@ Version: 0.1.0
 This specification defines portable YAML/JSON contracts for architecture
 meaning. A token library owns a lowercase namespace and exact SemVer version.
 It contains `component-type`, `relationship-type`, and `applied` definitions;
-the reference libraries keep core types separate from security, environment,
-and lifecycle domains. IDs are hierarchical dotted names and references are
-qualified as `namespace:token.id`.
+the reference libraries keep common and core types separate from security,
+environment, and lifecycle domains. IDs may be a single name or a hierarchical
+dotted name; references are qualified as `namespace:token` or
+`namespace:token.id`.
 Definitions may declare `appliesTo`, a JSON-Schema `valueSchema`, `requires`,
 `conflicts`, and implementation `mappings`.
 
@@ -24,6 +25,38 @@ unique ID, exactly one type-token reference, and zero or more applied-token
 objects `{token, value?}`. `appliesTo` can restrict element kinds and type
 tokens; application values are checked against `valueSchema`. Relationships
 connect existing component IDs. Libraries are selected as `namespace@version`.
+
+## Token-only boundary
+
+Tokens are reusable definitions of architecture meaning, not managed runtime
+objects. In v0.1, a component or relationship is the architecture-model
+element; its type token classifies it, and applied tokens annotate it. For
+example, `orders-api` can be a component of type
+`core:component.service`; its synchronous call to `payments-api` can be a
+relationship of type `core:relationship.call.sync`; and
+`lifecycle:lifecycle.deprecated` can be an applied token on either element.
+
+## Common token library
+
+The `common` library contains meanings and presentation affordances that are
+intended to travel across architecture notations. `common:database` means a
+persistent structured data store, and `common:user` means a human participant
+who interacts with a software system. Both are component types.
+
+`common:visual.decision-hexagon`, `common:visual.diamond`, and
+`common:visual.parallelogram` are applied presentation tokens. They select an
+appearance for a component without assigning domain semantics. The
+`common:ordinal-marker` applied token records an item's ordinal position; it
+does not assert temporal order. Renderer mappings may point to reusable SVG
+assets, but a mapping never changes the definition's semantic meaning.
+
+An Asset is a concrete managed object, such as a Kubernetes Deployment,
+database instance, repository, alert policy, or cloud account. Asset records
+and Token-to-Asset links are not part of the v0.1 schema. A later integration
+may associate an Asset with an architecture-model component, but it must not
+change the semantic meaning expressed by the component, relationship, or
+Token. This preserves architectural continuity when an implementation is
+migrated or replaced.
 
 Policy sets are safe typed YAML: no code or CEL. A rule has `id`, `description`,
 `severity` (`error` or `warning`), `target`, `where`, `assert`, `message`, and
@@ -38,5 +71,6 @@ Renderer input is a normalized resolved model; layout is outside v0.1.
 Flows, separate type/instance identity, architecture evolution, remote
 registries, standard layout hints, and layout models are out of scope.
 
-See the [schemas](./schema/), [reference library](./libraries/core.yaml), and
-[examples](./examples/). The package is Apache-2.0 licensed.
+See the [schemas](./schema/), [common library](./libraries/common.yaml),
+[core library](./libraries/core.yaml), and [examples](./examples/). The package
+is Apache-2.0 licensed.
