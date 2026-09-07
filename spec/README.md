@@ -1,6 +1,6 @@
 # Architecture Tokens
 
-[![Validate](https://github.com/architecture-tokens/spec/actions/workflows/validate.yml/badge.svg)](https://github.com/architecture-tokens/spec/actions/workflows/validate.yml)
+[![Check](https://github.com/architecture-tokens/website/actions/workflows/check.yml/badge.svg)](https://github.com/architecture-tokens/website/actions/workflows/check.yml)
 
 Architecture Tokens are the smallest reusable semantic units for software architecture.
 

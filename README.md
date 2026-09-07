@@ -1,6 +1,12 @@
-# Architecture Tokens Website
+# Architecture Tokens
 
-The public entry point for [Architecture Tokens](https://architecturetokens.org), deployed as a Cloudflare Worker with Static Assets.
+The specification and public website for [Architecture Tokens](https://architecturetokens.org). The website is deployed as a Cloudflare Worker with Static Assets.
+
+## Repository layout
+
+- `spec/` contains the normative specification, schemas, libraries, examples, and validator.
+- `src/` and `public/` contain the website.
+- Generated reference pages are built directly from the in-repository spec workspace.
 
 ## Development
 

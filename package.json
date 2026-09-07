@@ -2,6 +2,9 @@
   "name": "@architecture-tokens/website",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "spec"
+  ],
   "description": "The public website for Architecture Tokens.",
   "type": "module",
   "scripts": {
@@ -16,7 +19,8 @@
     "types:check": "wrangler types --check",
     "typecheck": "astro sync && tsc --noEmit",
     "test": "vitest run",
-    "check": "npm run sync-spec && npm run check:generated && npm run check:examples && npm run build && npm run check:built && npm run types:tracked && npm run types:check && npm run typecheck && npm test && npm run deploy:dry",
+    "check:spec": "npm test --workspace @architecture-tokens/spec",
+    "check": "npm run check:spec && npm run sync-spec && npm run check:generated && npm run check:examples && npm run build && npm run check:built && npm run types:tracked && npm run types:check && npm run typecheck && npm test && npm run deploy:dry",
     "verify:production": "node scripts/verify-production.mjs",
     "deploy:dry": "wrangler deploy --dry-run --outdir .wrangler/dry-run",
     "deploy": "wrangler deploy"
@@ -35,7 +39,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@architecture-tokens/spec": "github:architecture-tokens/spec#50729a0912e190979a122e1c2b31fdf3c367f2e5",
+    "@architecture-tokens/spec": "file:./spec",
     "@astrojs/starlight": "0.41.7",
     "ajv": "8.20.0",
     "astro": "7.2.4",

@@ -5,12 +5,12 @@ import { parse } from 'yaml';
 import { validateArchitecture, validateLibraries } from '@architecture-tokens/spec';
 
 const root = path.resolve(new URL('..', import.meta.url).pathname);
-const specRoot = path.join(root, 'node_modules/@architecture-tokens/spec');
-const libraries = ['core', 'security', 'environment', 'lifecycle'].map((name) => parse(fs.readFileSync(path.join(specRoot, 'libraries', `${name}.yaml`), 'utf8')));
+const specRoot = path.join(root, 'spec');
+const libraries = ['core', 'common', 'security', 'environment', 'lifecycle'].map((name) => parse(fs.readFileSync(path.join(specRoot, 'libraries', `${name}.yaml`), 'utf8')));
 const ajv = new Ajv2020({ allErrors: true, strict: true });
 const policySchema = JSON.parse(fs.readFileSync(path.join(specRoot, 'schema/policy-set.schema.json'), 'utf8'));
 const validatePolicy = ajv.compile(policySchema);
-if (!validateLibraries(libraries).valid) throw new Error('Pinned reference libraries failed validation');
+if (!validateLibraries(libraries).valid) throw new Error('In-repository reference libraries failed validation');
 let checked = 0;
 function check(value, file) {
   if (value.kind === 'architecture-model') { const result = validateArchitecture(value, libraries); if (!result.valid) throw new Error(`${file}: ${result.diagnostics.map((d) => d.message).join('; ')}`); }

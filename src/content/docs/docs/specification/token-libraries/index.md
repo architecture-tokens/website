@@ -18,6 +18,6 @@ tokens:
     kind: applied
     name: Encryption at rest
     description: Stored data is encrypted.
-    appliesTo: {elementKinds: [component], componentTypes: [core:component.database]}
+    appliesTo: {elementKinds: [component], componentTypes: [common:database]}
     valueSchema: {type: object, required: [algorithm], properties: {algorithm: {type: string}}}
 ```

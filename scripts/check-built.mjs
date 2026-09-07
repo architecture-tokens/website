@@ -23,6 +23,6 @@ for (const route of required) if (!routes.has(route)) throw new Error(`missing r
 for (const route of ['/cli/', '/reference/', '/getting-started/', '/specification/']) if (routes.has(route)) throw new Error(`accidental root docs route ${route}`);
 const docs = routes.get('/docs/'); const hashes = [...docs.matchAll(/sha256-[A-Za-z0-9+/=]{20,}/g)]; if (hashes.length < 2 || /unsafe-inline/.test(docs)) throw new Error('CSP hash policy missing or unsafe-inline present');
 const pagefind = fs.existsSync(path.join(dist, 'pagefind/pagefind-entry.json')); if (!pagefind) throw new Error('Pagefind assets missing');
-const provenance = fs.readFileSync(path.join(root, 'generated/spec-provenance.json'), 'utf8'); if (!provenance.includes('50729a0912e190979a122e1c2b31fdf3c367f2e5')) throw new Error('provenance missing pinned commit');
+const provenance = JSON.parse(fs.readFileSync(path.join(root, 'generated/spec-provenance.json'), 'utf8')); if (provenance.source !== 'spec/' || provenance.package !== '@architecture-tokens/spec') throw new Error('provenance missing in-repository spec source');
 const css = fs.readFileSync(path.join(dist, 'styles.css'), 'utf8'); if (!css.includes('focus-visible') || !css.includes('prefers-reduced-motion')) throw new Error('accessibility CSS missing');
 console.log(`Built-site checks passed: ${files.length} HTML routes, ${hashes.length} CSP hashes, Pagefind index present.`);

@@ -13,7 +13,7 @@ policies:
     description: Databases must declare encryption at rest.
     severity: error
     target: component
-    where: {type: core:component.database}
+    where: {type: common:database}
     assert: {hasToken: security:security.encryption.at-rest}
     message: Add the encryption-at-rest token.
 ```
